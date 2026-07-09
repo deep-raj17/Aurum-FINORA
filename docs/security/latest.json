@@ -6,7 +6,7 @@
       "command": [
         "pip-audit",
         "-r",
-        "D:\\Aurum\\requirements-api.txt",
+        "requirements-api.txt",
         "--progress-spinner",
         "off"
       ],
@@ -17,7 +17,7 @@
     "secret_findings": [],
     "container_scan": {
       "command": [
-        "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.EXE",
+        "docker",
         "run",
         "--rm",
         "-v",

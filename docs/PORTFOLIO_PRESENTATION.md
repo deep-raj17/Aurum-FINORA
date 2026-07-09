@@ -1,54 +1,110 @@
 # FINORA portfolio presentation
 
-## Project summary
+## One-minute summary
 
-FINORA is a research-focused financial intelligence platform that combines forecasting, evidence retrieval, graph reasoning, scenario analysis, and cost-aware backtesting. The project is intentionally structured as a validated research prototype rather than a production trading system.
+FINORA is an auditable financial intelligence research platform. It turns market data,
+filings, news, macro signals, graph relationships, and model outputs into governed
+decision-support reports with forecasts, uncertainty intervals, risk metrics,
+citations, and hash-chained audit evidence.
 
-## Architecture diagram text
+The project is built to demonstrate engineering judgment around financial AI:
+validation, leakage control, human review, reproducibility, observability, and honest
+model-risk boundaries.
+
+## What FINORA does
+
+- Normalizes financial and macro data through provider connectors.
+- Produces transparent baseline forecasts through the default `ForecastEngine`.
+- Provides optional specialist adapters for Chronos, NeuralForecast, LightGBM,
+  XGBoost, CatBoost, FinBERT, graph reasoning, Qdrant retrieval, and GPT-OSS-style
+  report synthesis boundaries.
+- Calculates risk, scenarios, costs, slippage, backtest metrics, and calibration
+  evidence.
+- Persists reports, citations, and audit events for reproducibility.
+- Exposes the workflow through FastAPI, CLI, Docker, Kubernetes, Helm, Terraform, and
+  monitoring assets.
+
+## Architecture
 
 ```text
-Market data and filings
-  -> normalization and quality checks
-  -> specialist experts (forecasting, text, graph, tabular)
-  -> FINORA-MoE fusion and router
-  -> calibration, risk, scenario, and backtesting layers
-  -> evidence retrieval and graph persistence
-  -> API, audit ledger, and research reports
+Provider data / filings / news / macro
+        |
+        v
+Connectors -> quality checks -> data lake -> feature store
+        |
+        v
+Default path: FinoraPipeline -> ForecastEngine -> risk/scenarios/audit/report
+        |
+        +--> Optional governed path:
+             specialists -> FINORA-MoE fusion/router -> calibration/backtesting
+             RAG/graph evidence -> GPT-OSS reasoning boundary -> audit
 ```
 
-## Model stack
+The default portfolio demo uses the deterministic pipeline. FINORA-MoE is implemented
+as a governed architecture, but it is not claimed as the default production workflow
+until the full routed path has its own end-to-end validation evidence.
 
-- Forecasting specialists: PatchTST, iTransformer, TFT, TiDE, Chronos
-- Tabular experts: LightGBM, XGBoost, CatBoost
-- Text expert: FinBERT
-- Graph expert: Graph Attention
-- Reasoning layer: GPT OSS 120B via remote endpoint only
+## Models and techniques
+
+| Area | Models / methods |
+|---|---|
+| Default forecasting | random walk, drift, robust drift, Holt linear, AR(1), ridge autoregression |
+| Specialist forecasting | Chronos, PatchTST, iTransformer, TFT, TiDE |
+| Tabular experts | LightGBM, XGBoost, CatBoost quantile specialists |
+| Text | FinBERT adapter plus auditable lexical fallback |
+| Graph | Neo4j persistence and graph attention expert |
+| Retrieval | Qdrant dense + BM25 hybrid retrieval, RRF, cross-encoder reranking |
+| Reasoning boundary | GPT-OSS remote-only grounded report path with citation validation |
+| Governance | anti-lookahead validation, hash-chained audit, model-risk release gates |
+
+## Engineering challenges solved
+
+- Kept optional heavy ML dependencies fail-closed instead of silently substituting
+  fake model behavior.
+- Added explicit live-provider and real-model gates so skipped external validation is
+  visible rather than treated as success.
+- Separated research-grade local evidence from staging and production approval.
+- Built deterministic default demos that work without secrets or private data.
+- Added Windows-safe validation notes for `pyarrow` and mypy timeout behavior.
+- Repaired Git hygiene and excluded secrets, model weights, local caches, and large
+  artifacts from the public release.
 
 ## Validation evidence
 
-- Research validation report: [../FINORA_RESEARCH_VALIDATION_REPORT.md](../FINORA_RESEARCH_VALIDATION_REPORT.md)
-- Provider status: [../reports/providers/provider_status.md](../reports/providers/provider_status.md)
-- Research dataset summary: [../reports/research/research_dataset_v1.md](../reports/research/research_dataset_v1.md)
+- Phase 8 public release: [PHASE8_PUBLIC_RELEASE.md](PHASE8_PUBLIC_RELEASE.md)
+- Phase 7 gates: [PHASE7_GITHUB_RELEASE_READINESS.md](PHASE7_GITHUB_RELEASE_READINESS.md)
+- Phase 6 real execution: [PHASE6_REAL_EXECUTION_VALIDATION.md](PHASE6_REAL_EXECUTION_VALIDATION.md)
 - RTX 4070 benchmark: [../reports/benchmarks/rtx4070_real_models.md](../reports/benchmarks/rtx4070_real_models.md)
 - Research artifact: [../reports/research/yahoo-aapl-xgboost-expanding.json](../reports/research/yahoo-aapl-xgboost-expanding.json)
 
+Phase 7 local gates passed: Ruff, Ruff format check, pytest, timeout-safe mypy, and
+runtime API health.
+
+## Research honesty
+
+The Yahoo/AAPL/XGBoost expanding-window run proves pipeline execution on real market
+data. It does not prove alpha:
+
+- Directional accuracy: 0.4286
+- Interval coverage: 0.4286
+- Net Sharpe: -4.0898
+- Bootstrap p-value: 0.868
+
 ## Limitations
 
-- Live provider tests are blocked by missing credentials.
-- The Windows environment still shows a pyarrow-related collection crash during pytest startup.
-- API health was not reachable in the current verification pass.
-- The current evidence is research-grade, not production-approved.
+- No live-provider matrix without approved credentials.
+- No production-approved calibration, regime, or bias datasets.
+- No staging SLO, soak, failover, ingress-security, or signed approval package.
+- GPT-OSS 120B remains remote-only and not production-validated here.
+- FINORA-MoE/KD-Q deployment artifacts need governed ONNX/TensorRT/INT8 accuracy
+  validation before deployment claims.
 
-## Interview talking points
+## Future work
 
-- FINORA preserves the existing architecture and focuses on validation and reproducibility.
-- The platform combines deterministic research outputs with local GPU-backed model execution.
-- Evidence and audit layers are designed to support human review and future compliance workflows.
-- The project is intentionally transparent about what is validated and what remains blocked.
-
-## Future roadmap
-
-- Add approved provider credentials and rerun the live-provider matrix.
-- Expand beyond the current single-symbol Yahoo Finance walkthrough.
-- Add broader backtesting and regime coverage.
-- Resolve the pyarrow and API health blockers before broader deployment work.
+1. Add approved provider credentials and run the full live-provider matrix.
+2. Expand research validation across assets, horizons, regimes, and market stress.
+3. Validate licensed calibration and bias datasets.
+4. Wire and validate the full FINORA-MoE path end to end.
+5. Run hardened staging performance, reliability, recovery, and security tests.
+6. Complete independent model-risk, security, compliance, data-owner, and engineering
+   sign-offs.

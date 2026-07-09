@@ -4,30 +4,40 @@ title: "[Research] "
 labels: ["research", "triage"]
 body:
   - type: input
-    id: experiment
+    id: name
     attributes:
-      label: Experiment name and scope
+      label: Experiment name
+      placeholder: "multi-asset expanding-window baseline comparison"
     validations:
       required: true
   - type: textarea
     id: hypothesis
     attributes:
-      label: Hypothesis and objective
+      label: Hypothesis
+      description: What should improve and why?
     validations:
       required: true
   - type: textarea
     id: protocol
     attributes:
-      label: Data sources, splits, windowing, and metrics
+      label: Protocol
+      description: Data sources, assets, date ranges, purging, windows, metrics, costs, and baselines.
     validations:
       required: true
   - type: textarea
     id: results
     attributes:
-      label: Results, charts, logs, and limitations
-    validations:
-      required: true
+      label: Results
+      description: Metrics, artifacts, logs, plots, and negative findings.
   - type: textarea
-    id: blockers
+    id: limitations
     attributes:
-      label: Reproducibility blockers or missing credentials
+      label: Limitations and blockers
+      description: Credential gaps, data-license issues, small sample caveats, or reproducibility risks.
+  - type: checkboxes
+    id: honesty
+    attributes:
+      label: Research honesty
+      options:
+        - label: I will not represent execution evidence as market alpha without statistical support.
+          required: true

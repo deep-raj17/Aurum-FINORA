@@ -1,35 +1,34 @@
 name: Feature request
-description: Propose a scoped FINORA capability.
+description: Propose a scoped FINORA capability or documentation improvement.
 title: "[Feature] "
 labels: ["enhancement", "triage"]
 body:
-  - type: dropdown
-    id: board
+  - type: markdown
     attributes:
-      label: Workstream
-      options:
-        - Data Platform
-        - Forecasting Engine
-        - RAG and Reasoning
-        - Risk and Backtesting
-        - UI and API
-        - Security and Compliance
-        - Deployment and MLOps
-    validations:
-      required: true
+      value: Phase 8 release policy: do not propose unvalidated production claims or autonomous trading behavior.
   - type: textarea
     id: problem
     attributes:
-      label: Problem and user outcome
+      label: Problem
+      description: What user or research workflow is blocked?
     validations:
       required: true
   - type: textarea
-    id: acceptance
+    id: proposal
     attributes:
-      label: Acceptance and validation criteria
+      label: Proposed change
+      description: Keep scope tight and note whether architecture changes are required.
     validations:
       required: true
   - type: textarea
-    id: risk
+    id: validation
     attributes:
-      label: Data, model-risk, security, and compliance impact
+      label: Validation plan
+      description: Tests, docs, metrics, release gates, or model-risk review needed.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and limitations
+      description: Data, security, compliance, and model-risk impact.

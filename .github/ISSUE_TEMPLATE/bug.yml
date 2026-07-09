@@ -3,33 +3,54 @@ description: Report a reproducible FINORA defect without sensitive data.
 title: "[Bug] "
 labels: ["bug", "triage"]
 body:
+  - type: markdown
+    attributes:
+      value: Do not include credentials, API keys, private datasets, model weights, or client data.
   - type: dropdown
-    id: board
+    id: workstream
     attributes:
       label: Workstream
       options:
-        - Data Platform
-        - Forecasting Engine
-        - RAG and Reasoning
-        - Risk and Backtesting
-        - UI and API
-        - Security and Compliance
-        - Deployment and MLOps
+        - API / CLI
+        - Forecasting
+        - Data connectors
+        - RAG / graph / reasoning
+        - Risk / backtesting
+        - KDQ / export
+        - Documentation / release
+        - Infrastructure / CI
     validations:
       required: true
   - type: textarea
-    id: behavior
+    id: observed
     attributes:
-      label: Observed and expected behavior
+      label: Observed behavior
+      description: What happened?
     validations:
       required: true
   - type: textarea
-    id: reproduction
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
     attributes:
       label: Minimal reproduction
+      description: Commands, inputs, and sanitized output.
     validations:
       required: true
   - type: textarea
-    id: evidence
+    id: environment
     attributes:
-      label: Sanitized logs and environment
+      label: Environment
+      description: OS, Python version, install extras, GPU if relevant.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public safety check
+      options:
+        - label: I removed secrets, tokens, credentials, private data, and proprietary model artifacts.
+          required: true

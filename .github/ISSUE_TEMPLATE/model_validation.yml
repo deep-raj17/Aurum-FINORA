@@ -1,38 +1,43 @@
 name: Model validation
-description: Track governed model or calibration validation.
+description: Track governed model, artifact, calibration, or export validation.
 title: "[Model validation] "
 labels: ["model-validation", "model-risk"]
 body:
   - type: input
     id: model
     attributes:
-      label: Model ID and immutable version
+      label: Model or artifact
+      placeholder: "FINORA-KD-Q INT8 export / Chronos Tiny / FINORA-MoE router"
     validations:
       required: true
   - type: textarea
-    id: hashes
+    id: provenance
     attributes:
-      label: Model, dataset, feature, code, and evidence hashes
+      label: Provenance
+      description: Model ID, version, revision, checksum, license, dataset hash, code commit.
     validations:
       required: true
   - type: textarea
     id: protocol
     attributes:
-      label: Walk-forward, purge, regime, calibration, benchmark, and bias protocol
+      label: Validation protocol
+      description: Walk-forward, purge, calibration, regime slices, bias checks, benchmark hardware, export deltas.
     validations:
       required: true
   - type: textarea
     id: results
     attributes:
-      label: Results, baselines, costs, limitations, and blockers
+      label: Results and residual risk
+      description: Metrics, comparison to baselines, known failures, deployment restrictions.
     validations:
       required: true
   - type: checkboxes
     id: approvals
     attributes:
-      label: Approval gates
+      label: Required approvals
       options:
-        - label: Model-risk review recorded
-        - label: Data-owner review recorded
-        - label: Security review recorded
-        - label: Compliance review recorded
+        - label: Model-risk review completed
+        - label: Data-owner review completed
+        - label: Security review completed
+        - label: Compliance review completed
+        - label: Human-review gate preserved

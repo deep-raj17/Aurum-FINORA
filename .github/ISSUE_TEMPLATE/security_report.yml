@@ -1,25 +1,48 @@
-name: Security report metadata
-description: Track a sanitized security concern; disclose exploitable details privately.
+name: Security report
+description: Track sanitized security metadata; submit exploitable details privately.
 title: "[Security] "
 labels: ["security", "triage"]
 body:
   - type: markdown
     attributes:
-      value: Do not include credentials, tokens, private data, or exploit details here.
+      value: Do not include exploit steps, credentials, tokens, private data, or vulnerable private endpoints in a public issue.
   - type: textarea
     id: summary
     attributes:
-      label: Sanitized summary and affected component
+      label: Sanitized summary
+      description: Affected component and high-level impact.
     validations:
       required: true
   - type: dropdown
-    id: private
+    id: private_report
     attributes:
-      label: Was the full report submitted through a private security advisory?
-      options: ["Yes", "Not yet"]
+      label: Full private report submitted?
+      options:
+        - "Yes"
+        - "Not yet"
+        - "Not applicable"
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Estimated severity
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+        - Unsure
     validations:
       required: true
   - type: textarea
     id: containment
     attributes:
-      label: Sanitized containment status
+      label: Sanitized containment or mitigation status
+  - type: checkboxes
+    id: disclosure
+    attributes:
+      label: Public disclosure check
+      options:
+        - label: This public issue contains no secrets, exploit payloads, private data, or actionable abuse details.
+          required: true

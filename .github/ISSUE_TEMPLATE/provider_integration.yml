@@ -1,5 +1,5 @@
 name: Provider integration
-description: Track a provider connector, credential, or data-source integration issue.
+description: Track a provider connector, credential, rate-limit, or data-quality issue.
 title: "[Provider] "
 labels: ["provider", "triage"]
 body:
@@ -18,23 +18,37 @@ body:
         - Binance
         - World Bank
         - IMF
+        - ECB
+        - OECD
+        - Stooq
         - Nasdaq Data Link
         - Financial Modeling Prep
+        - Other
     validations:
       required: true
   - type: textarea
     id: issue
     attributes:
-      label: Description of the integration problem
+      label: Issue
+      description: Authentication, response schema, pagination, rate limit, data quality, or freshness concern.
     validations:
       required: true
   - type: textarea
-    id: evidence
+    id: sanitized_evidence
     attributes:
-      label: Sanitized error output, rate-limit information, and authentication status
+      label: Sanitized evidence
+      description: HTTP status, provider message, validation output, or logs with secrets removed.
     validations:
       required: true
   - type: textarea
-    id: expected
+    id: verification
     attributes:
-      label: Expected behavior and how to verify it
+      label: Verification plan
+      description: Command, fixture, live gate, or data-quality check that should pass.
+  - type: checkboxes
+    id: credential_safety
+    attributes:
+      label: Credential safety
+      options:
+        - label: I did not include API keys, tokens, account IDs, private endpoints, or proprietary datasets.
+          required: true
