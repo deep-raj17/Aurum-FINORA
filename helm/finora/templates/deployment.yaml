@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "finora.name" . }}-{{ .Values.deployment.color }}
+  labels:
+    {{- include "finora.labels" . | nindent 4 }}
+    finora.io/color: {{ .Values.deployment.color }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 5
+  strategy:
+    rollingUpdate: {maxUnavailable: 0, maxSurge: 1}
+  selector:
+    matchLabels:
+      {{- include "finora.labels" . | nindent 6 }}
+      finora.io/color: {{ .Values.deployment.color }}
+  template:
+    metadata:
+      labels:
+        {{- include "finora.labels" . | nindent 8 }}
+        finora.io/color: {{ .Values.deployment.color }}
+    spec:
+      serviceAccountName: {{ include "finora.name" . }}
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: {type: RuntimeDefault}
+      {{- with .Values.gpu.nodeSelector }}
+      nodeSelector: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.gpu.tolerations }}
+      tolerations: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports: [{name: http, containerPort: 8000}]
+          env:
+            - {name: AURUM_ENV, value: {{ .Values.config.environment | quote }}}
+            - {name: AURUM_API_KEY_FILE, value: /run/secrets/api-key}
+            - {name: AURUM_SENTIMENT_BACKEND, value: finbert}
+            - {name: AURUM_SENTIMENT_MODEL_ID, value: {{ .Values.config.sentimentModel | quote }}}
+          volumeMounts:
+            - {name: secrets, mountPath: /run/secrets, readOnly: true}
+            - {name: data, mountPath: /var/lib/finora}
+            - {name: tmp, mountPath: /tmp}
+          startupProbe:
+            httpGet: {path: /health, port: http}
+            failureThreshold: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet: {path: /health, port: http}
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /health, port: http}
+            periodSeconds: 20
+          resources:
+            {{- if .Values.gpu.enabled }}
+            requests:
+              {{- toYaml .Values.resources.requests | nindent 14 }}
+            limits:
+              {{- toYaml .Values.resources.limits | nindent 14 }}
+              nvidia.com/gpu: {{ .Values.gpu.count }}
+            {{- else }}
+            {{- toYaml .Values.resources | nindent 12 }}
+            {{- end }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+      volumes:
+        - name: secrets
+          secret: {secretName: {{ .Values.secretName }}}
+        - name: data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim: {claimName: {{ include "finora.name" . }}-data}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: tmp
+          emptyDir: {sizeLimit: 256Mi}

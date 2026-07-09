@@ -1,0 +1,40 @@
+name: Provider integration
+description: Track a provider connector, credential, or data-source integration issue.
+title: "[Provider] "
+labels: ["provider", "triage"]
+body:
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Provider
+      options:
+        - Yahoo Finance
+        - Alpha Vantage
+        - Tiingo
+        - Finnhub
+        - FRED
+        - SEC EDGAR
+        - CoinGecko
+        - Binance
+        - World Bank
+        - IMF
+        - Nasdaq Data Link
+        - Financial Modeling Prep
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: Description of the integration problem
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized error output, rate-limit information, and authentication status
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior and how to verify it

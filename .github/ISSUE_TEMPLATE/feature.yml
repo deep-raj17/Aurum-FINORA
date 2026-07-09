@@ -1,0 +1,35 @@
+name: Feature request
+description: Propose a scoped FINORA capability.
+title: "[Feature] "
+labels: ["enhancement", "triage"]
+body:
+  - type: dropdown
+    id: board
+    attributes:
+      label: Workstream
+      options:
+        - Data Platform
+        - Forecasting Engine
+        - RAG and Reasoning
+        - Risk and Backtesting
+        - UI and API
+        - Security and Compliance
+        - Deployment and MLOps
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and user outcome
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance and validation criteria
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Data, model-risk, security, and compliance impact

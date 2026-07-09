@@ -1,0 +1,38 @@
+name: Model validation
+description: Track governed model or calibration validation.
+title: "[Model validation] "
+labels: ["model-validation", "model-risk"]
+body:
+  - type: input
+    id: model
+    attributes:
+      label: Model ID and immutable version
+    validations:
+      required: true
+  - type: textarea
+    id: hashes
+    attributes:
+      label: Model, dataset, feature, code, and evidence hashes
+    validations:
+      required: true
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Walk-forward, purge, regime, calibration, benchmark, and bias protocol
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Results, baselines, costs, limitations, and blockers
+    validations:
+      required: true
+  - type: checkboxes
+    id: approvals
+    attributes:
+      label: Approval gates
+      options:
+        - label: Model-risk review recorded
+        - label: Data-owner review recorded
+        - label: Security review recorded
+        - label: Compliance review recorded

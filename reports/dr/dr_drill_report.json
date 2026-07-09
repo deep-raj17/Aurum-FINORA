@@ -1,0 +1,103 @@
+{
+  "drill_timestamp": "2026-07-01T13:04:10.712597",
+  "total_tests": 7,
+  "passed_tests": 7,
+  "failed_tests": 0,
+  "success_rate": 100.0,
+  "average_rto_seconds": 5.14,
+  "test_results": [
+    {
+      "name": "database_unavailable",
+      "success": true,
+      "error_message": "",
+      "rto_seconds": 6.0,
+      "rpo_seconds": 0.0,
+      "details": {
+        "cache_fallback_available": true,
+        "data_consistency_check": true,
+        "automatic_recovery": true
+      },
+      "timestamp": "2026-07-01T13:03:40.702243"
+    },
+    {
+      "name": "vectordb_unavailable",
+      "success": true,
+      "error_message": "",
+      "rto_seconds": 6.0,
+      "rpo_seconds": 0.0,
+      "details": {
+        "lexical_fallback_available": true,
+        "rag_degradation_acceptable": true,
+        "automatic_recovery": true
+      },
+      "timestamp": "2026-07-01T13:03:46.704519"
+    },
+    {
+      "name": "neo4j_unavailable",
+      "success": true,
+      "error_message": "",
+      "rto_seconds": 6.0,
+      "rpo_seconds": 0.0,
+      "details": {
+        "graph_fallback_available": true,
+        "contagion_analysis_degraded": true,
+        "automatic_recovery": true
+      },
+      "timestamp": "2026-07-01T13:03:52.706862"
+    },
+    {
+      "name": "model_service_unavailable",
+      "success": true,
+      "error_message": "",
+      "rto_seconds": 6.0,
+      "rpo_seconds": 0.0,
+      "details": {
+        "model_fallback_available": true,
+        "degraded_mode_functional": true,
+        "automatic_recovery": true
+      },
+      "timestamp": "2026-07-01T13:03:58.708559"
+    },
+    {
+      "name": "provider_api_timeout",
+      "success": true,
+      "error_message": "",
+      "rto_seconds": 4.0,
+      "rpo_seconds": 0.0,
+      "details": {
+        "retry_logic_functional": true,
+        "exponential_backoff": true,
+        "cache_fallback": true
+      },
+      "timestamp": "2026-07-01T13:04:02.710459"
+    },
+    {
+      "name": "corrupted_cache",
+      "success": true,
+      "error_message": "",
+      "rto_seconds": 4.0,
+      "rpo_seconds": 0.0,
+      "details": {
+        "cache_invalidation_successful": true,
+        "cache_rebuild_successful": true,
+        "data_integrity_preserved": true
+      },
+      "timestamp": "2026-07-01T13:04:06.711539"
+    },
+    {
+      "name": "failed_checkpoint_resume",
+      "success": true,
+      "error_message": "",
+      "rto_seconds": 4.0,
+      "rpo_seconds": 0.0,
+      "details": {
+        "fallback_to_last_good_state": true,
+        "data_loss_minimal": true,
+        "recovery_successful": true
+      },
+      "timestamp": "2026-07-01T13:04:10.712597"
+    }
+  ],
+  "rpo_notes": "RPO measured as data loss window during failure scenarios",
+  "rto_notes": "RTO measured as time to recover full functionality"
+}

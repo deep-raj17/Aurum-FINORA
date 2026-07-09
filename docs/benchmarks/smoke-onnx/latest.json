@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-07-01T04:56:27.636595Z",
+  "hardware": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "cuda_available": true,
+    "gpu_count": 1,
+    "gpu_0": "NVIDIA GeForce RTX 4070 SUPER"
+  },
+  "results": [
+    {
+      "runtime": "onnxruntime",
+      "precision": "fp32",
+      "device": "CUDAExecutionProvider",
+      "batch_size": 1,
+      "iterations": 30,
+      "median_latency_ms": 1.1851500000000001,
+      "p95_latency_ms": 1.3189,
+      "throughput_per_second": 843.7750495717842,
+      "peak_vram_bytes": null,
+      "peak_host_memory_bytes": null,
+      "mean_absolute_error": null,
+      "maximum_absolute_error": null
+    },
+    {
+      "runtime": "onnxruntime",
+      "precision": "fp32",
+      "device": "CUDAExecutionProvider",
+      "batch_size": 8,
+      "iterations": 30,
+      "median_latency_ms": 1.2956,
+      "p95_latency_ms": 1.6229,
+      "throughput_per_second": 6174.745291756715,
+      "peak_vram_bytes": null,
+      "peak_host_memory_bytes": null,
+      "mean_absolute_error": null,
+      "maximum_absolute_error": null
+    },
+    {
+      "runtime": "onnxruntime",
+      "precision": "fp32",
+      "device": "CUDAExecutionProvider",
+      "batch_size": 32,
+      "iterations": 30,
+      "median_latency_ms": 1.28575,
+      "p95_latency_ms": 1.6898,
+      "throughput_per_second": 24888.197550068053,
+      "peak_vram_bytes": null,
+      "peak_host_memory_bytes": null,
+      "mean_absolute_error": null,
+      "maximum_absolute_error": null
+    }
+  ],
+  "blockers": []
+}

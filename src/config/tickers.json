@@ -1,0 +1,45 @@
+{
+  "stocks": [
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "AMZN",
+    "META",
+    "GOOGL",
+    "TSLA",
+    "JPM",
+    "BAC",
+    "WMT",
+    "V",
+    "MA",
+    "UNH",
+    "PG",
+    "HD"
+  ],
+  "etfs": [
+    "SPY",
+    "QQQ",
+    "VTI",
+    "VOO",
+    "IWM"
+  ],
+  "indices": [
+    "^GSPC",
+    "^IXIC",
+    "^DJI",
+    "^VIX",
+    "^RUT"
+  ],
+  "crypto": [
+    "BTC-USD",
+    "ETH-USD",
+    "SOL-USD",
+    "BNB-USD"
+  ],
+  "forex": [
+    "EURUSD=X",
+    "GBPUSD=X",
+    "JPY=X",
+    "INR=X"
+  ]
+}

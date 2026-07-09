@@ -1,0 +1,24 @@
+model:
+  model_name: FINORA-KD-Q-SMOKE
+  time_features: 3
+  tabular_features: 4
+  vocab_size: 256
+  max_text_length: 16
+  sequence_length: 16
+  patch_size: 4
+  hidden_size: 32
+  reasoning_size: 16
+  attention_heads: 4
+  encoder_layers: 1
+  dropout: 0.0
+  quantiles: [0.1, 0.5, 0.9]
+  qat_enabled: true
+
+training:
+  epochs: 1
+  batch_size: 4
+  learning_rate: 0.0003
+  validation_fraction: 0.25
+  early_stopping_patience: 1
+  mixed_precision: false
+  output_dir: artifacts/finora-kdq-smoke

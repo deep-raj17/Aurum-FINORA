@@ -1,0 +1,35 @@
+name: Bug report
+description: Report a reproducible FINORA defect without sensitive data.
+title: "[Bug] "
+labels: ["bug", "triage"]
+body:
+  - type: dropdown
+    id: board
+    attributes:
+      label: Workstream
+      options:
+        - Data Platform
+        - Forecasting Engine
+        - RAG and Reasoning
+        - Risk and Backtesting
+        - UI and API
+        - Security and Compliance
+        - Deployment and MLOps
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed and expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized logs and environment

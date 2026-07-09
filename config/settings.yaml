@@ -1,0 +1,23 @@
+environment: dev
+model_version: finora-core-1.1
+annualisation_factor: 252
+min_train_size: 20
+database_path: data/aurum.sqlite3
+retrieval_limit: 5
+sentiment_backend: lexical
+sentiment_model_id: ProsusAI/finbert
+llm_provider: disabled
+llm_mode: remote
+llm_model_id: gpt-oss-120b
+llm_max_context: 131072
+llm_max_tokens: 4096
+llm_temperature: 0.1
+cors_origins:
+  - http://localhost:3000
+  - http://localhost:8000
+costs:
+  round_trip_bps: 10
+  slippage_bps: 5
+compliance_scope:
+  - research-only
+  - human-review-required

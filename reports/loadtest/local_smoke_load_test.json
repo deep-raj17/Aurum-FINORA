@@ -1,0 +1,114 @@
+{
+  "load_test_timestamp": "2026-07-01T13:00:00Z",
+  "load_test_command": "locust -f load/locustfile.py --headless -u 5 -r 2 --run-time 30s --host http://localhost:8000",
+  "test_type": "local_smoke",
+  "environment": "Windows, RTX 4070 12GB VRAM, development workstation",
+  "target": "http://localhost:8000 (local)",
+  "summary": {
+    "test_duration_seconds": 30,
+    "total_requests": 245,
+    "total_failures": 125,
+    "failure_rate": 51.02,
+    "users": 5,
+    "spawn_rate": 2,
+    "status": "rate_limited"
+  },
+  "results": {
+    "health_endpoint": {
+      "requests": 176,
+      "failures": 81,
+      "failure_rate": 46.02,
+      "avg_response_time_ms": 3,
+      "min_response_time_ms": 1,
+      "max_response_time_ms": 49,
+      "median_response_time_ms": 2,
+      "requests_per_second": 6.01,
+      "errors": [
+        {
+          "error": "HTTPError('429 Client Error: Too Many Requests for url: /health')",
+          "occurrences": 81
+        }
+      ]
+    },
+    "forecast_endpoint": {
+      "requests": 69,
+      "failures": 44,
+      "failure_rate": 63.77,
+      "avg_response_time_ms": 26,
+      "min_response_time_ms": 1,
+      "max_response_time_ms": 102,
+      "median_response_time_ms": 3,
+      "requests_per_second": 2.35,
+      "errors": [
+        {
+          "error": "POST /v1/forecast: unexpected status 429",
+          "occurrences": 44
+        }
+      ]
+    }
+  },
+  "response_time_percentiles": {
+    "health": {
+      "p50": 2,
+      "p66": 3,
+      "p75": 3,
+      "p80": 3,
+      "p90": 4,
+      "p95": 4,
+      "p98": 7,
+      "p99": 29,
+      "p99_9": 49,
+      "p100": 49
+    },
+    "forecast": {
+      "p50": 3,
+      "p66": 61,
+      "p75": 64,
+      "p80": 67,
+      "p90": 70,
+      "p95": 84,
+      "p98": 99,
+      "p99": 100,
+      "p99_9": 100,
+      "p100": 100
+    },
+    "aggregated": {
+      "p50": 2,
+      "p66": 3,
+      "p75": 3,
+      "p80": 3,
+      "p90": 57,
+      "p95": 67,
+      "p98": 72,
+      "p99": 96,
+      "p99_9": 100,
+      "p100": 100
+    }
+  },
+  "analysis": {
+    "api_status": "running",
+    "rate_limiting": "functional",
+    "health_endpoint": "responding",
+    "forecast_endpoint": "responding",
+    "blocking_issue": "Rate limiting triggered at 5 users, preventing sustained load test",
+    "successful_requests": 120,
+    "rate_limited_requests": 125
+  },
+  "staging_status": {
+    "staging_available": false,
+    "staging_url": "not configured",
+    "staging_test": "blocked",
+    "reason": "STAGING_API_URL environment variable not set"
+  },
+  "recommendations": [
+    "Configure STAGING_API_URL for staging load testing",
+    "Adjust rate limits for staging environment to allow sustained load testing",
+    "For production: configure higher rate limits or use load balancer",
+    "Local smoke test confirms API is functional and rate limiting works"
+  ],
+  "staging_readiness": {
+    "status": "partial",
+    "ready_for_staging": false,
+    "blocking": "STAGING_API_URL not configured, rate limits too aggressive for load testing"
+  }
+}

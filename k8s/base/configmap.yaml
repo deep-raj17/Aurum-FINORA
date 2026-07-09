@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: finora-config
+  namespace: finora
+data:
+  AURUM_ENV: production
+  AURUM_DATABASE_PATH: /var/lib/finora/aurum.sqlite3
+  AURUM_SENTIMENT_BACKEND: finbert
+  AURUM_SENTIMENT_MODEL_ID: ProsusAI/finbert

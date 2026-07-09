@@ -1,0 +1,55 @@
+model:
+  model_name: FINORA-KD-Q
+  time_features: 6
+  tabular_features: 24
+  vocab_size: 30000
+  max_text_length: 128
+  sequence_length: 64
+  patch_size: 8
+  hidden_size: 128
+  reasoning_size: 64
+  attention_heads: 4
+  encoder_layers: 2
+  dropout: 0.1
+  quantiles: [0.1, 0.5, 0.9]
+  qat_enabled: true
+
+training:
+  epochs: 10
+  batch_size: 32
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  validation_fraction: 0.2
+  early_stopping_patience: 3
+  temperature: 2.0
+  seed: 42
+  device: auto
+  mixed_precision: true
+  output_dir: artifacts/finora-kdq
+  weights:
+    forecast: 1.0
+    forecast_distillation: 0.7
+    quantile_distillation: 0.3
+    sentiment_distillation: 0.5
+    risk_distillation: 0.5
+    uncertainty: 0.3
+    volatility: 0.2
+    calibration: 0.2
+    reasoning: 0.1
+
+teachers:
+  forecast:
+    production: [amazon/chronos-t5-small, PatchTST, TemporalFusionTransformer]
+    offline: statistical-ensemble-surrogate-v1
+  sentiment:
+    production: ProsusAI/finbert
+    offline: auditable-finance-lexicon-v1
+  risk:
+    production: [LightGBM, XGBoost]
+    offline: historical-risk-surrogate-v1
+  reasoning:
+    production: Qwen-or-Llama-financial-instruct
+    offline: grounded-hashed-reasoning-v1
+  retrieval:
+    production: BGE-M3-plus-cross-encoder

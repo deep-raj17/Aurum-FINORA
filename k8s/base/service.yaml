@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: finora
+  namespace: finora
+  labels:
+    app.kubernetes.io/name: finora
+spec:
+  selector:
+    app.kubernetes.io/name: finora
+    finora.io/color: blue
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

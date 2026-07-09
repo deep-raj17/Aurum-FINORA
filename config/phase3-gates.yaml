@@ -1,0 +1,63 @@
+release_id: finora-phase3-unapproved
+classification: engineering-ready
+production_approved: false
+gates:
+  - name: unit-static-coverage
+    status: pass
+    evidence:
+      - local Ruff, Mypy, pytest and coverage execution
+  - name: live-providers
+    status: blocked
+    evidence:
+      - Yahoo Finance CoinGecko Binance World Bank and IMF live tests passed
+    blockers:
+      - Alpha Vantage Tiingo Finnhub and other credentialed configuration is absent
+      - Stooq access validation failed
+  - name: real-model-weights
+    status: blocked
+    evidence:
+      - Chronos Tiny and FinBERT weights cached and executed
+      - PatchTST TFT N-HiTS XGBoost and LightGBM executed locally
+    blockers:
+      - approved governed weight revisions and self-hosted GPT-OSS endpoint required
+  - name: gpu-benchmarks
+    status: blocked
+    evidence:
+      - smoke TorchScript FP32 FP16 BF16 CUDA reports
+      - smoke TorchScript INT8 CPU report
+      - smoke ONNX Runtime CUDA report
+    blockers:
+      - governed production-weight artifact and approved accuracy deltas required
+      - target TensorRT INT8 and quantized GPT-OSS endpoint reports required
+  - name: calibration-backtesting
+    status: blocked
+    evidence:
+      - Yahoo AAPL XGBoost expanding-window 12-record research report
+    blockers:
+      - licensed versioned production datasets and adequate multi-asset regime coverage required
+  - name: load-reliability
+    status: blocked
+    evidence:
+      - local five-user smoke load passed
+    blockers:
+      - staging SLO, stress, soak, outage, RPO and RTO evidence required
+  - name: security
+    status: blocked
+    evidence:
+      - production dependency audit clean
+      - repository secret scan clean
+      - core image HIGH/CRITICAL Trivy scan clean
+    blockers:
+      - KDQ and UI images plus authenticated staging ingress require scanning/testing
+  - name: bias
+    status: blocked
+    blockers:
+      - approved production slices with adequate sample sizes required
+  - name: model-risk-approval
+    status: blocked
+    blockers:
+      - signed human approval tied to reproducibility hash required
+  - name: compliance-approval
+    status: blocked
+    blockers:
+      - signed legal/compliance approval tied to reproducibility hash required

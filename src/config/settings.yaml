@@ -1,0 +1,24 @@
+project:
+  name: FINORA
+  version: 1.0.0
+
+data:
+  root: data
+  raw: data/raw
+  processed: data/processed
+
+download:
+  start_date: "2010-01-01"
+  end_date: null
+
+training:
+  batch_size: 64
+  epochs: 100
+  num_workers: 8
+  device: cuda
+
+storage:
+  format: parquet
+
+logging:
+  level: INFO

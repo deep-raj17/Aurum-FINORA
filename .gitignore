@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+.env.local
+.env.production
+.env.staging
+secrets/
+credentials/
+tokens/
+local-models/
+*.key
+*.pem
+*.token
+
+# Data artifacts
+data/raw/*
+data/processed/*
+data/*.sqlite3
+data/*.db
+data/kdq/
+data/cache/
+artifacts/
+outputs/
+logs/
+lightning_logs/
+*.parquet
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# ML / experiment tracking
+mlruns/
+*.ckpt
+*.pt
+*.onnx
+*.safetensors
+*.bin
+*.gguf
+models/
+checkpoints/
+model_cache/
+reports/private/
+reports/**/private*
+reports/**/secrets*
+reports/**/credentials*
+reports/**/*.env
+reports/**/*.sqlite3
+reports/**/*.db
+
+# Caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.coverage
+htmlcov/

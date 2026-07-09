@@ -1,0 +1,33 @@
+name: Research experiment
+description: Track a FINORA research validation experiment or ablation.
+title: "[Research] "
+labels: ["research", "triage"]
+body:
+  - type: input
+    id: experiment
+    attributes:
+      label: Experiment name and scope
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis and objective
+    validations:
+      required: true
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Data sources, splits, windowing, and metrics
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Results, charts, logs, and limitations
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Reproducibility blockers or missing credentials

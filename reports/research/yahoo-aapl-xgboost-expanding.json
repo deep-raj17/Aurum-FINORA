@@ -1,0 +1,99 @@
+{
+  "generated_at": "2026-07-02T11:50:48.170303+00:00",
+  "research_only": true,
+  "provider": "yahoo",
+  "symbol": "AAPL",
+  "model": "xgboost",
+  "quality": {
+    "accepted": true,
+    "score": 1.0,
+    "rows": 123,
+    "issues": [],
+    "duplicate_timestamps": 0,
+    "outliers": 0,
+    "holiday_or_weekend_gaps": 0,
+    "currency": null
+  },
+  "feature_columns": [
+    "timestamp",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "return_1d",
+    "return_5d",
+    "volatility_20d",
+    "momentum_20d",
+    "volume_zscore_20d"
+  ],
+  "source_dataset_hash": "8859b619959077eb5e8a2fb7f87f17eb62e9bb635125ada109ac93874a66756c",
+  "validation": {
+    "dataset_name": "yahoo:AAPL",
+    "dataset_version": "yahoo:AAPL:2026-07-02T11:50:36.140181+00:00",
+    "dataset_hash": "c8fa03130b66fa52710b311575fa0094548042c1902ad62c1133bfbfe12d17c0",
+    "window_mode": "expanding",
+    "overall": {
+      "observations": 21,
+      "mae": 9.518582298642112,
+      "rmse": 11.838269360565947,
+      "mape": 0.03277423504672513,
+      "directional_accuracy": 0.42857142857142855,
+      "interval_coverage": 0.42857142857142855,
+      "calibration_ece": 0.3714285714285715
+    },
+    "regimes": {
+      "bull": {
+        "observations": 11,
+        "mae": 9.917325106534092,
+        "rmse": 11.653546407071858,
+        "mape": 0.03327046070116708,
+        "directional_accuracy": 0.45454545454545453,
+        "interval_coverage": 0.36363636363636365,
+        "calibration_ece": 0.4363636363636364
+      },
+      "sideways": {
+        "observations": 1,
+        "mae": 15.919189453125,
+        "rmse": 15.919189453125,
+        "mape": 0.05606958889073169,
+        "directional_accuracy": 0.0,
+        "interval_coverage": 0.0,
+        "calibration_ece": 0.8
+      },
+      "high-volatility": {
+        "observations": 9,
+        "mae": 8.32005140516493,
+        "rmse": 11.526587021103122,
+        "mape": 0.029579364375295347,
+        "directional_accuracy": 0.4444444444444444,
+        "interval_coverage": 0.5555555555555556,
+        "calibration_ece": 0.24444444444444446
+      }
+    },
+    "strategy": {
+      "annualised_return_gross": -0.7771910038315668,
+      "annualised_return_net": -0.8420866886406231,
+      "sharpe_gross": -3.2862363456465844,
+      "sharpe_net": -4.089841712207768,
+      "sortino_net": -5.846196933031885,
+      "max_drawdown": -0.17985282762934962,
+      "calmar_net": -4.68208756982148,
+      "win_rate": 0.42857142857142855,
+      "profit_factor": 0.5026219092056354,
+      "turnover": 19.0,
+      "trading_cost": 0.028499999999999998,
+      "observations": 21,
+      "average_gain_loss": 0.6143156668068879,
+      "alpha_t_stat": -1.1806356067430572,
+      "bootstrap_p_value": 0.868,
+      "buy_hold_return": 4.997982021103403,
+      "momentum_return": -0.5882942464148166,
+      "probability_backtest_overfit": null
+    }
+  },
+  "claims": {
+    "alpha": false,
+    "reason": "Research output requires benchmark, cost, OOS and regime review"
+  }
+}

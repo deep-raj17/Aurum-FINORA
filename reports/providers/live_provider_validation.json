@@ -1,0 +1,125 @@
+{
+  "validation_timestamp": "2026-07-01T12:57:00Z",
+  "validation_command": "FINORA_RUN_LIVE_TESTS=1 pytest -m live tests/integration/test_live_providers.py -ra",
+  "environment": "Windows, RTX 4070 12GB VRAM, development workstation",
+  "summary": {
+    "total_tests": 15,
+    "passed": 4,
+    "failed": 2,
+    "skipped": 9,
+    "execution_time_seconds": 79.39
+  },
+  "results": {
+    "credentialed_providers": {
+      "alpha_vantage": {
+        "status": "skipped",
+        "reason": "ALPHAVANTAGE_API_KEY is not configured",
+        "test": "test_credentialed_market_provider[factory0-ALPHAVANTAGE_API_KEY-IBM]"
+      },
+      "tiingo": {
+        "status": "skipped",
+        "reason": "TIINGO_API_KEY is not configured",
+        "test": "test_credentialed_market_provider[factory1-TIINGO_API_KEY-AAPL]"
+      },
+      "nasdaq_data_link": {
+        "status": "skipped",
+        "reason": "NASDAQ_DATA_LINK_API_KEY is not configured",
+        "test": "test_credentialed_market_provider[factory2-NASDAQ_DATA_LINK_API_KEY-WIKI/AAPL]"
+      },
+      "financial_modeling_prep": {
+        "status": "skipped",
+        "reason": "FMP_API_KEY is not configured",
+        "test": "test_credentialed_market_provider[factory3-FMP_API_KEY-AAPL]"
+      },
+      "finnhub": {
+        "status": "skipped",
+        "reason": "FINNHUB_API_KEY is not configured",
+        "test": "test_credentialed_market_provider[factory4-FINNHUB_API_KEY-AAPL]"
+      },
+      "fred": {
+        "status": "skipped",
+        "reason": "FRED_API_KEY is not configured",
+        "test": "test_fred_live"
+      },
+      "sec_edgar": {
+        "status": "skipped",
+        "reason": "SEC_USER_AGENT with a contact email is not configured",
+        "test": "test_sec_edgar_live"
+      }
+    },
+    "network_providers": {
+      "yahoo_finance": {
+        "status": "passed",
+        "test": "test_yahoo_finance_live",
+        "symbol": "AAPL",
+        "days": 10
+      },
+      "stooq": {
+        "status": "failed",
+        "test": "test_stooq_live",
+        "symbol": "aapl.us",
+        "days": 30,
+        "error": "ConnectorError: request failed after 4 attempts: https://stooq.com/q/d/l/?s=aapl.us&d1=20260531&d2=20260630&i=d"
+      },
+      "coingecko": {
+        "status": "passed",
+        "test": "test_coingecko_live",
+        "symbol": "bitcoin",
+        "days": 3
+      },
+      "binance": {
+        "status": "failed",
+        "test": "test_binance_live",
+        "symbol": "BTCUSDT",
+        "days": 3,
+        "error": "PermissionError: [WinError 32] The process cannot access the file because it is being used by another process"
+      }
+    },
+    "macro_providers": {
+      "world_bank": {
+        "status": "passed",
+        "test": "test_world_bank_live",
+        "indicator": "NY.GDP.MKTP.KD.ZG",
+        "geography": "IND"
+      },
+      "imf": {
+        "status": "passed",
+        "test": "test_imf_live",
+        "indicator": "NGDP_RPCH",
+        "geography": "IND"
+      },
+      "ecb": {
+        "status": "skipped",
+        "reason": "ECB_TEST_DATASET and ECB_TEST_KEY are required",
+        "test": "test_configured_sdmx_live[connector0-ECB]"
+      },
+      "oecd": {
+        "status": "skipped",
+        "reason": "OECD_TEST_DATASET and OECD_TEST_KEY are required",
+        "test": "test_configured_sdmx_live[connector1-OECD]"
+      }
+    }
+  },
+  "analysis": {
+    "credentialed_coverage": "0/7 providers configured",
+    "network_provider_success_rate": "2/4 (50%)",
+    "macro_provider_success_rate": "2/4 (50%)",
+    "overall_success_rate": "4/15 (27%)",
+    "blocking_issues": [
+      "Missing API keys for 7 credentialed providers",
+      "Stooq network connectivity issues",
+      "Binance file permission error (Windows-specific)"
+    ]
+  },
+  "recommendations": [
+    "Configure API keys for Alpha Vantage, Tiingo, Finnhub, FRED to enable credentialed provider validation",
+    "Investigate Stooq network connectivity - may be temporary outage or firewall issue",
+    "Fix Binance file permission issue - likely Windows file locking problem in cache",
+    "Configure ECB and OECD test datasets for macro provider validation"
+  ],
+  "staging_readiness": {
+    "status": "partial",
+    "ready_for_staging": false,
+    "blocking": "Credentialed providers not configured, network provider failures present"
+  }
+}

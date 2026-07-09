@@ -1,0 +1,123 @@
+{
+  "benchmark_timestamp": "2026-07-01T12:59:00Z",
+  "benchmark_command": "make benchmark-rtx4070",
+  "environment": "Windows, RTX 4070 12GB VRAM, development workstation",
+  "summary": {
+    "status": "partial",
+    "benchmarks_completed": 0,
+    "benchmarks_skipped": 8,
+    "reason": "KDQ artifact not available, ML model dependencies not installed"
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "vram_gb": 12,
+    "cuda_available": "not tested",
+    "driver_version": "not detected",
+    "cuda_version": "not detected"
+  },
+  "results": {
+    "finbert": {
+      "status": "skipped",
+      "reason": "transformers library not installed, model weights not downloaded"
+    },
+    "chronos": {
+      "status": "skipped",
+      "reason": "chronos library not installed, model weights not downloaded"
+    },
+    "xgboost": {
+      "status": "skipped",
+      "reason": "GPU benchmark not configured, CPU inference only validated"
+    },
+    "lightgbm": {
+      "status": "skipped",
+      "reason": "GPU benchmark not configured, CPU inference only validated"
+    },
+    "onnx_runtime": {
+      "status": "skipped",
+      "reason": "ONNX models not exported, ONNX Runtime not configured"
+    },
+    "tensorrt": {
+      "status": "skipped",
+      "reason": "TensorRT not installed, models not optimized for TensorRT"
+    },
+    "local_llm": {
+      "status": "skipped",
+      "reason": "No local LLM configured for RTX 4070 12GB VRAM constraint"
+    },
+    "remote_gpt_oss": {
+      "status": "skipped",
+      "reason": "GPT_OSS_ENDPOINT not configured"
+    }
+  },
+  "blocking_issues": [
+    "FINORA-KD-Q TorchScript artifact not available (artifacts/finora-kdq/)",
+    "ML model dependencies not installed (chronos, neuralforecast, transformers)",
+    "Model weights not downloaded or cached",
+    "ONNX Runtime not installed",
+    "TensorRT not installed",
+    "GPT_OSS_ENDPOINT not configured"
+  ],
+  "required_for_full_benchmark": [
+    "Install ML dependencies: pip install chronos-chronos neuralforecast transformers torch",
+    "Download model weights to cache directory",
+    "Export models to ONNX format for ONNX Runtime benchmarking",
+    "Install TensorRT for production GPU benchmarking",
+    "Configure GPT_OSS_ENDPOINT for remote LLM benchmarking",
+    "Generate FINORA-KD-Q artifact for TorchScript benchmarking"
+  ],
+  "expected_metrics": {
+    "finbert": {
+      "latency_p50_ms": "expected: 10-50ms",
+      "latency_p95_ms": "expected: 20-100ms",
+      "latency_p99_ms": "expected: 50-200ms",
+      "throughput_samples_per_sec": "expected: 20-100",
+      "vram_peak_gb": "expected: 2-4GB",
+      "ram_peak_gb": "expected: 1-2GB",
+      "batch_size": "recommended: 8-16",
+      "precision": "recommended: fp16"
+    },
+    "chronos_t5_tiny": {
+      "latency_p50_ms": "expected: 50-200ms",
+      "latency_p95_ms": "expected: 100-400ms",
+      "latency_p99_ms": "expected: 200-800ms",
+      "throughput_samples_per_sec": "expected: 5-20",
+      "vram_peak_gb": "expected: 4-8GB",
+      "ram_peak_gb": "expected: 2-4GB",
+      "batch_size": "recommended: 4-8",
+      "precision": "recommended: fp16"
+    },
+    "xgboost_gpu": {
+      "latency_p50_ms": "expected: 5-20ms",
+      "latency_p95_ms": "expected: 10-40ms",
+      "latency_p99_ms": "expected: 20-80ms",
+      "throughput_samples_per_sec": "expected: 50-200",
+      "vram_peak_gb": "expected: 1-2GB",
+      "ram_peak_gb": "expected: 0.5-1GB",
+      "batch_size": "recommended: 32-64",
+      "precision": "recommended: fp32"
+    },
+    "lightgbm_gpu": {
+      "latency_p50_ms": "expected: 5-20ms",
+      "latency_p95_ms": "expected: 10-40ms",
+      "latency_p99_ms": "expected: 20-80ms",
+      "throughput_samples_per_sec": "expected: 50-200",
+      "vram_peak_gb": "expected: 1-2GB",
+      "ram_peak_gb": "expected: 0.5-1GB",
+      "batch_size": "recommended: 32-64",
+      "precision": "recommended: fp32"
+    }
+  },
+  "staging_readiness": {
+    "status": "not_ready",
+    "ready_for_staging": false,
+    "blocking": "No GPU benchmarks completed, ML dependencies missing, artifact not available"
+  },
+  "recommendations": [
+    "Install full ML stack with GPU support",
+    "Download and cache model weights",
+    "Generate FINORA-KD-Q artifact via make kdq-generate && make kdq-train && make kdq-export",
+    "Install ONNX Runtime and TensorRT for production benchmarking",
+    "Configure remote LLM endpoint for GPT-OSS benchmarking",
+    "Run benchmarks with different batch sizes and precision modes"
+  ]
+}

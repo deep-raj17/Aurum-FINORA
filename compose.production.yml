@@ -1,0 +1,25 @@
+services:
+  aurum:
+    environment:
+      - AURUM_ENV=production
+      - AURUM_API_KEY_FILE=/run/secrets/aurum_api_key
+      - AURUM_SENTIMENT_BACKEND=finbert
+    secrets:
+      - aurum_api_key
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+  neo4j:
+    environment:
+      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD:?NEO4J_PASSWORD is required}
+
+  grafana:
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:?GRAFANA_ADMIN_PASSWORD is required}
+
+secrets:
+  aurum_api_key:
+    file: ${AURUM_API_KEY_FILE:?AURUM_API_KEY_FILE is required}

@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-07-01T07:34:25.622673+00:00",
+  "passed": false,
+  "checks": {
+    "ingress_security": {
+      "tls_config": {
+        "status": "configured",
+        "details": "TLS certificates found"
+      },
+      "jwt_authentication": {
+        "status": "not_configured",
+        "details": "JWT secret not set"
+      },
+      "rbac_policy": {
+        "status": "configured",
+        "details": "RBAC policy file found"
+      },
+      "rate_limiting": {
+        "status": "enabled",
+        "details": "Rate limiting configured in code"
+      },
+      "cors_policy": {
+        "status": "enabled",
+        "details": "CORS configured in settings"
+      },
+      "security_headers": {
+        "status": "enabled",
+        "details": "Security headers configured"
+      },
+      "unauthenticated_rejection": {
+        "status": "not_tested",
+        "details": "Requires staging deployment"
+      },
+      "privileged_route_protection": {
+        "status": "not_tested",
+        "details": "Requires staging deployment"
+      }
+    }
+  }
+}

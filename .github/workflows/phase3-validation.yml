@@ -1,0 +1,67 @@
+name: Phase 3 validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_live:
+        type: boolean
+        default: false
+      run_models:
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e ".[dev,api,security]"
+      - run: pip-audit -r requirements-api.txt
+      - run: docker build -t finora:${{ github.sha }} .
+      - uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
+        with:
+          image-ref: finora:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+
+  live-providers:
+    if: inputs.run_live
+    runs-on: ubuntu-latest
+    environment: staging-validation
+    env:
+      FINORA_RUN_LIVE_TESTS: "1"
+      ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+      TIINGO_API_KEY: ${{ secrets.TIINGO_API_KEY }}
+      NASDAQ_DATA_LINK_API_KEY: ${{ secrets.NASDAQ_DATA_LINK_API_KEY }}
+      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+      FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+      FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+      SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11", cache: pip}
+      - run: pip install -e ".[dev,data]"
+      - run: pytest -m live tests/integration/test_live_providers.py
+
+  real-models:
+    if: inputs.run_models
+    runs-on: [self-hosted, gpu, finora-validation]
+    environment: staging-validation
+    env:
+      FINORA_RUN_MODEL_TESTS: "1"
+      GPT_OSS_ENDPOINT: ${{ secrets.GPT_OSS_ENDPOINT }}
+      GPT_OSS_API_TOKEN: ${{ secrets.GPT_OSS_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install -e ".[dev,stats,deep,nlp]"
+      - run: pytest -m model tests/integration/test_real_models.py

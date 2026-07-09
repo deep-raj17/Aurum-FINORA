@@ -1,0 +1,24 @@
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    FINORA_KDQ_ARTIFACT=/app/artifacts/finora-kdq
+
+RUN addgroup --system aurum && adduser --system --ingroup aurum aurum
+WORKDIR /app
+COPY requirements-api.txt requirements-kdq.txt ./
+RUN pip install --no-cache-dir "torch>=2.2" --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --no-cache-dir -r requirements-kdq.txt
+COPY pyproject.toml README.md ./
+COPY src ./src
+COPY config ./config
+RUN pip install --no-cache-dir . --no-deps
+RUN pip uninstall -y setuptools wheel
+RUN mkdir -p /app/data /app/artifacts && chown -R aurum:aurum /app
+
+USER aurum
+EXPOSE 8001
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"
+CMD ["uvicorn", "aurum.api.main:app", "--host", "0.0.0.0", "--port", "8001"]
