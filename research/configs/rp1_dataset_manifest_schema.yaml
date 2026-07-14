@@ -1,0 +1,88 @@
+schema_name: rp1_dataset_manifest_schema
+schema_version: "1.0"
+status: target_schema
+note: >
+  This schema defines publication-ready RP1 manifest requirements. The current
+  data/metadata/dataset_manifest.csv is expected to fail parts of this schema until
+  immutable dataset versions and hashes are added.
+mandatory_fields:
+  symbol:
+    type: string
+    rule: non_empty
+  safe_name:
+    type: string
+    rule: non_empty_file_safe_identifier
+  category:
+    type: string
+    allowed_values:
+      - stocks
+      - etfs
+      - indices
+      - crypto
+      - forex
+      - mutual_funds
+  source:
+    type: string
+    rule: provider_identifier_required
+  start_date:
+    type: date
+    format: YYYY-MM-DD
+  end_date:
+    type: date
+    format: YYYY-MM-DD
+    prohibited_values:
+      - latest
+  frequency:
+    type: string
+    allowed_values:
+      - daily
+  row_count:
+    type: integer
+    minimum: 1
+  schema_version:
+    type: string
+    rule: non_empty
+  dataset_version:
+    type: string
+    rule: immutable_identifier
+    prohibited_values:
+      - latest
+  retrieval_timestamp:
+    type: datetime
+    rule: timezone_required
+  raw_sha256:
+    type: string
+    format: sha256
+  processed_sha256:
+    type: string
+    format: sha256
+  timezone:
+    type: string
+    rule: non_empty
+  adjusted_price_status:
+    type: string
+    allowed_values:
+      - adjusted_close_available
+      - close_only
+      - not_applicable
+  file_path:
+    type: string
+    rule: must_exist_relative_to_project_root
+optional_fields:
+  exchange:
+    type: string
+  sector:
+    type: string
+  corporate_action_policy:
+    type: string
+  missing_value_policy:
+    type: string
+  license:
+    type: string
+validation_rules:
+  - latest_is_publication_unsafe
+  - file_path_must_exist
+  - raw_sha256_must_match_raw_file_when_available
+  - processed_sha256_must_match_processed_file_when_available
+  - start_date_must_not_be_after_end_date
+  - dataset_version_must_include_provider_asset_frequency_dates_retrieval_date_and_hash

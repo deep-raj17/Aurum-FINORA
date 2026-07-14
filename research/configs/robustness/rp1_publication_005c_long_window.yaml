@@ -1,0 +1,39 @@
+publication_id: RP1_PUBLICATION_005C_LONG_WINDOW_DEPENDENCE_CORRECTION
+predecessor_experiment_id: RP1_PUB005B_CORRECTED_20260714T063122Z_7ea9e0c5c389
+target: target_direction
+horizon_days: 20
+final_holdout_start: '2025-07-01'
+models: [LightGBM, XGBoost, CatBoost]
+seeds: [11, 17, 23, 42]
+assets:
+  - {symbol: SPY, safe_name: SPY, category: etfs}
+  - {symbol: QQQ, safe_name: QQQ, category: etfs}
+  - {symbol: VTI, safe_name: VTI, category: etfs}
+  - {symbol: VOO, safe_name: VOO, category: etfs}
+  - {symbol: IWM, safe_name: IWM, category: etfs}
+  - {symbol: DIA, safe_name: DIA, category: etfs}
+  - {symbol: XLK, safe_name: XLK, category: etfs}
+  - {symbol: XLF, safe_name: XLF, category: etfs}
+  - {symbol: XLE, safe_name: XLE, category: etfs}
+  - {symbol: EURUSD=X, safe_name: EURUSDX, category: forex}
+  - {symbol: GBPUSD=X, safe_name: GBPUSDX, category: forex}
+  - {symbol: JPY=X, safe_name: JPYX, category: forex}
+  - {symbol: INR=X, safe_name: INRX, category: forex}
+  - {symbol: AUDUSD=X, safe_name: AUDUSDX, category: forex}
+  - {symbol: CAD=X, safe_name: CADX, category: forex}
+  - {symbol: AAPL, safe_name: AAPL, category: stocks}
+  - {symbol: UNH, safe_name: UNH, category: stocks}
+  - {symbol: AMZN, safe_name: AMZN, category: stocks}
+  - {symbol: NVDA, safe_name: NVDA, category: stocks}
+  - {symbol: TSLA, safe_name: TSLA, category: stocks}
+minimum_train_rows: 756
+test_rows: 126
+max_windows: 2
+purge: 20
+embargo: 5
+bootstrap: {method: moving_block, block_lengths: [20, 25, 40], samples: 1000}
+permutation: {method: circular_shift, samples: 1000}
+costs_bps: [0, 8, 15, 25]
+output_root: research/results/rp1_publication_005c
+run_prefix: RP1_PUB005C_LONG_WINDOW_CORRECTION
+overwrite_policy: forbid

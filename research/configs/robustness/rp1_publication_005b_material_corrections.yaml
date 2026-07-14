@@ -1,0 +1,37 @@
+publication_id: RP1_PUBLICATION_005B_TRUE_ROBUSTNESS_CORRECTED
+predecessor_experiment_id: RP1_PUB005_TRUE_ROBUSTNESS_20260714T054241Z_7574f5fca030
+predecessor_config_hash: 7574f5fca030b16f36e31c4d7e550cb305030e166fb03cf4789a37390d83c92f
+target: target_direction
+horizon_days: 20
+final_holdout_start: '2025-07-01'
+models: [LightGBM, XGBoost, CatBoost]
+seeds: [11, 17, 23, 42]
+assets:
+  - {symbol: SPY, safe_name: SPY, category: etfs}
+  - {symbol: QQQ, safe_name: QQQ, category: etfs}
+  - {symbol: VTI, safe_name: VTI, category: etfs}
+  - {symbol: VOO, safe_name: VOO, category: etfs}
+  - {symbol: IWM, safe_name: IWM, category: etfs}
+  - {symbol: DIA, safe_name: DIA, category: etfs}
+  - {symbol: XLK, safe_name: XLK, category: etfs}
+  - {symbol: XLF, safe_name: XLF, category: etfs}
+  - {symbol: XLE, safe_name: XLE, category: etfs}
+  - {symbol: EURUSD=X, safe_name: EURUSDX, category: forex}
+  - {symbol: GBPUSD=X, safe_name: GBPUSDX, category: forex}
+  - {symbol: JPY=X, safe_name: JPYX, category: forex}
+  - {symbol: INR=X, safe_name: INRX, category: forex}
+  - {symbol: AUDUSD=X, safe_name: AUDUSDX, category: forex}
+  - {symbol: CAD=X, safe_name: CADX, category: forex}
+  - {symbol: AAPL, safe_name: AAPL, category: stocks}
+  - {symbol: UNH, safe_name: UNH, category: stocks}
+  - {symbol: AMZN, safe_name: AMZN, category: stocks}
+  - {symbol: NVDA, safe_name: NVDA, category: stocks}
+  - {symbol: TSLA, safe_name: TSLA, category: stocks}
+primary_scenario: {retraining_frequency: monthly_expanding, hyperparameter_variant: base, feature_ablation: full}
+purge: 20
+embargo: 5
+bootstrap: {method: moving_block, block_lengths: [20, 25, 40], samples: 1000}
+permutation: {method: circular_shift, samples: 1000}
+costs_bps: [0, 8, 15, 25]
+output_root: research/results/rp1_publication_005_corrected
+overwrite_policy: forbid

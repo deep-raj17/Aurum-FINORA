@@ -1,0 +1,20 @@
+{
+  "experiment_id": "RP1_PUB005C_LONG_WINDOW_CORRECTION_20260714T071638Z_148f574d89e8",
+  "predecessor_experiment_id": "RP1_PUB005B_CORRECTED_20260714T063122Z_7ea9e0c5c389",
+  "config_hash": "148f574d89e82b488e565dced2014a06672f256a4bfccf85cd1845ce6f816ae1",
+  "python": "3.11.9",
+  "os": "Windows-10-10.0.26200-SP0",
+  "command": "python scripts/run_rp1_publication_005b_corrections.py --config research\\configs\\robustness\\rp1_publication_005c_long_window.yaml",
+  "created_at": "2026-07-14T07:21:34.000362+00:00",
+  "files": [
+    "config_snapshot.yaml",
+    "config_hash.txt",
+    "per_seed_metrics.csv",
+    "splits.csv",
+    "baseline_alignment.csv",
+    "statistical_artifact.csv",
+    "economic_diagnostic.csv",
+    "feasibility_audit.csv",
+    "aggregate_metrics.csv"
+  ]
+}

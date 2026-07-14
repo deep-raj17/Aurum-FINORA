@@ -1,0 +1,19 @@
+{
+  "experiment_id": "RP1_PUB005B_CORRECTED_20260714T063122Z_7ea9e0c5c389",
+  "predecessor_experiment_id": "RP1_PUB005_TRUE_ROBUSTNESS_20260714T054241Z_7574f5fca030",
+  "config_hash": "7ea9e0c5c389e106a21abda01622427dfcaaefb07caed8538b712102276e8c1b",
+  "python": "3.11.9",
+  "os": "Windows-10-10.0.26200-SP0",
+  "command": "python scripts/run_rp1_publication_005b_corrections.py --config research\\configs\\robustness\\rp1_publication_005b_material_corrections.yaml",
+  "created_at": "2026-07-14T06:33:40.672943+00:00",
+  "files": [
+    "config_snapshot.yaml",
+    "config_hash.txt",
+    "per_seed_metrics.csv",
+    "splits.csv",
+    "baseline_alignment.csv",
+    "statistical_artifact.csv",
+    "economic_diagnostic.csv",
+    "aggregate_metrics.csv"
+  ]
+}

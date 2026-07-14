@@ -1,0 +1,12 @@
+{
+  "program": "RP1",
+  "archive_date": "2026-07-14",
+  "status": "accepted_with_recorded_limitations_and_archived",
+  "archive_reason": "Evidence inconclusive but research objective completed",
+  "scientific_verdict": "RP1 remains statistically inconclusive",
+  "paper_observation": "not approved",
+  "record_state": "closed_immutable_read_only",
+  "evidence_anchor": "RP1_PUB005C_LONG_WINDOW_CORRECTION_20260714T071638Z_148f574d89e8",
+  "prohibited_claims": ["alpha", "profitability", "investment advice", "production readiness", "autonomous trading"],
+  "successor_programs_require_new_protocol": ["RP2 Cross-Asset Generalization", "RP3 Regime Detection", "RP4 Feature Discovery", "RP5 Transaction Cost Analysis"]
+}

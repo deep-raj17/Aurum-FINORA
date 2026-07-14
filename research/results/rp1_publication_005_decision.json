@@ -1,0 +1,26 @@
+{
+  "publication_id": "RP1_PUBLICATION_005_TRUE_ROBUSTNESS_RERUN",
+  "experiment_id": "RP1_PUB005_TRUE_ROBUSTNESS_20260714T054241Z_7574f5fca030",
+  "config_hash": "7574f5fca030b16f36e31c4d7e550cb305030e166fb03cf4789a37390d83c92f",
+  "rp1_decision": "RP1 remains statistically inconclusive",
+  "paper_observation_decision": "not approved",
+  "qualified_candidates": [],
+  "failed_criteria": [
+    "paper_observation_gate_not_satisfied"
+  ],
+  "inconclusive_criteria": [
+    "single_seed_screening_design",
+    "final_holdout_not_evaluated"
+  ],
+  "final_test_guard_result": "passed",
+  "prohibited_claims": [
+    "alpha",
+    "profitability",
+    "production_readiness",
+    "investment_advice",
+    "autonomous_trading",
+    "commercial_signal_sales",
+    "institutional_readiness"
+  ],
+  "next_allowed_action": "Publish the robustness evidence and conduct an independent human review."
+}

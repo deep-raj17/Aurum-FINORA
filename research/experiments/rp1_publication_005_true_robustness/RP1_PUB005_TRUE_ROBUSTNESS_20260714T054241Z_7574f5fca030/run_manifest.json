@@ -1,0 +1,16 @@
+{
+  "run_id": "RP1_PUB005_TRUE_ROBUSTNESS_20260714T054241Z_7574f5fca030",
+  "publication_id": "RP1_PUBLICATION_005_TRUE_ROBUSTNESS_RERUN",
+  "config_hash": "7574f5fca030b16f36e31c4d7e550cb305030e166fb03cf4789a37390d83c92f",
+  "mode": "run",
+  "asset_rows": 555,
+  "regime_rows": 1431,
+  "cost_rows": 2220,
+  "feature_rows": 555,
+  "statistical_rows": 60,
+  "failure_rows": 60,
+  "final_holdout_start": "2025-07-01",
+  "final_test_guard": "passed",
+  "runtime_seconds": 134.859,
+  "publication": "reports\\research\\programs\\rp1_medium_term_tree_models\\RP1_PUBLICATION_005_TRUE_ROBUSTNESS_RERUN.md"
+}

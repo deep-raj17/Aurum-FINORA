@@ -1,0 +1,39 @@
+{
+  "publication_id": "RP1_PUBLICATION_005_TRUE_ROBUSTNESS_RERUN",
+  "experiment_id": "RP1_PUB005_TRUE_ROBUSTNESS_20260714T054241Z_7574f5fca030",
+  "verified_config_hash": "7574f5fca030b16f36e31c4d7e550cb305030e166fb03cf4789a37390d83c92f",
+  "review_verdict": "Conditionally accepted pending material corrections",
+  "research_record_decision": "Not approved until material corrections are completed",
+  "rp1_verdict_agreement": "RP1 remains statistically inconclusive",
+  "paper_observation_agreement": "not approved",
+  "final_test_guard_result": "passed",
+  "reproducibility_result": "partial; primary evidence is traceable but required artifacts are incomplete",
+  "material_issues": [
+    "block bootstrap length is shorter than the 20-day target-overlap horizon",
+    "permutation test is not dependence-aware",
+    "baseline inventory and alignment artifacts are incomplete",
+    "decision matrix and required reproducibility artifacts are incomplete",
+    "overlapping-return economic annualization is diagnostic only"
+  ],
+  "nonmaterial_issues": [
+    "publication date is stale",
+    "publication mentions mutual funds although frozen config excludes them",
+    "publication should display the exact configuration hash"
+  ],
+  "required_corrections": [
+    "use preregistered dependence-aware inference",
+    "generate missing immutable split, baseline, probability, seed, aggregate, and checklist artifacts",
+    "test deterministic pass/fail/invalid/inconclusive decision logic",
+    "clarify economic metrics as diagnostic under overlapping targets"
+  ],
+  "prohibited_claims_confirmed": [
+    "alpha",
+    "profitability",
+    "production readiness",
+    "investment advice",
+    "autonomous trading",
+    "commercial signal sales",
+    "institutional readiness"
+  ],
+  "next_permitted_action": "Document the listed corrections and conduct independent human review."
+}

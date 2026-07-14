@@ -1,0 +1,98 @@
+assets:
+- category: etfs
+  safe_name: SPY
+  symbol: SPY
+- category: etfs
+  safe_name: QQQ
+  symbol: QQQ
+- category: etfs
+  safe_name: VTI
+  symbol: VTI
+- category: etfs
+  safe_name: VOO
+  symbol: VOO
+- category: etfs
+  safe_name: IWM
+  symbol: IWM
+- category: etfs
+  safe_name: DIA
+  symbol: DIA
+- category: etfs
+  safe_name: XLK
+  symbol: XLK
+- category: etfs
+  safe_name: XLF
+  symbol: XLF
+- category: etfs
+  safe_name: XLE
+  symbol: XLE
+- category: forex
+  safe_name: EURUSDX
+  symbol: EURUSD=X
+- category: forex
+  safe_name: GBPUSDX
+  symbol: GBPUSD=X
+- category: forex
+  safe_name: JPYX
+  symbol: JPY=X
+- category: forex
+  safe_name: INRX
+  symbol: INR=X
+- category: forex
+  safe_name: AUDUSDX
+  symbol: AUDUSD=X
+- category: forex
+  safe_name: CADX
+  symbol: CAD=X
+- category: stocks
+  safe_name: AAPL
+  symbol: AAPL
+- category: stocks
+  safe_name: UNH
+  symbol: UNH
+- category: stocks
+  safe_name: AMZN
+  symbol: AMZN
+- category: stocks
+  safe_name: NVDA
+  symbol: NVDA
+- category: stocks
+  safe_name: TSLA
+  symbol: TSLA
+bootstrap:
+  block_lengths:
+  - 20
+  - 25
+  - 40
+  method: moving_block
+  samples: 1000
+costs_bps:
+- 0
+- 8
+- 15
+- 25
+embargo: 5
+final_holdout_start: '2025-07-01'
+horizon_days: 20
+max_windows: 2
+minimum_train_rows: 756
+models:
+- LightGBM
+- XGBoost
+- CatBoost
+output_root: research/results/rp1_publication_005c
+overwrite_policy: forbid
+permutation:
+  method: circular_shift
+  samples: 1000
+predecessor_experiment_id: RP1_PUB005B_CORRECTED_20260714T063122Z_7ea9e0c5c389
+publication_id: RP1_PUBLICATION_005C_LONG_WINDOW_DEPENDENCE_CORRECTION
+purge: 20
+run_prefix: RP1_PUB005C_LONG_WINDOW_CORRECTION
+seeds:
+- 11
+- 17
+- 23
+- 42
+target: target_direction
+test_rows: 126

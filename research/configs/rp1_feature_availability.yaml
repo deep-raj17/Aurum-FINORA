@@ -1,0 +1,53 @@
+schema_name: rp1_feature_availability
+schema_version: "1.0"
+status: verified_rules_for_current_rp1_campaign_scope
+feature_groups:
+  price:
+    source_timestamp: market_bar_close
+    availability_timestamp: after_market_bar_close
+    allowed_lag: zero_or_positive
+    revision_risk: corporate_action_adjustment
+    alignment_rule: use observations at or before prediction timestamp
+    rp1_inclusion_status: included
+  volume:
+    source_timestamp: market_bar_close
+    availability_timestamp: after_market_bar_close
+    allowed_lag: zero_or_positive
+    revision_risk: vendor_correction
+    alignment_rule: use observations at or before prediction timestamp
+    rp1_inclusion_status: included
+  technical:
+    source_timestamp: derived_from_historical_market_bars
+    availability_timestamp: after_all_component_bars_are_available
+    allowed_lag: zero_or_positive
+    revision_risk: source_bar_revision
+    alignment_rule: trailing rolling windows only; centered windows are prohibited
+    rp1_inclusion_status: included
+  lagged_returns:
+    source_timestamp: derived_from_historical_market_bars
+    availability_timestamp: after_source_bar_close
+    allowed_lag: positive_only
+    revision_risk: source_bar_revision
+    alignment_rule: shift must point backward from prediction timestamp
+    rp1_inclusion_status: included
+  macro:
+    source_timestamp: official_release_timestamp
+    availability_timestamp: after_release_timestamp
+    allowed_lag: positive_only
+    revision_risk: high
+    alignment_rule: point-in-time release data only
+    rp1_inclusion_status: blocked_for_current_rp1_campaign
+  news:
+    source_timestamp: publication_timestamp
+    availability_timestamp: after_publication_timestamp
+    allowed_lag: zero_or_positive
+    revision_risk: vendor_timestamp_risk
+    alignment_rule: publication time required; article date alone is insufficient
+    rp1_inclusion_status: blocked_for_current_rp1_campaign
+  fundamentals:
+    source_timestamp: filing_acceptance_timestamp
+    availability_timestamp: after_filing_acceptance_timestamp
+    allowed_lag: positive_only
+    revision_risk: restatement_risk
+    alignment_rule: point-in-time filing data only
+    rp1_inclusion_status: blocked_for_current_rp1_campaign

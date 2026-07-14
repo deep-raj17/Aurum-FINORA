@@ -1,0 +1,96 @@
+campaign_id: research_campaign_v1
+description: Phase 10 first quantitative research campaign over the current FINORA manifest.
+manifest_path: data/metadata/dataset_manifest.csv
+output_dir: reports/research
+registry_path: data/research/experiments.sqlite3
+experiment_json_dir: reports/research/campaign_v1_experiments
+
+assets:
+  - {symbol: AAPL, safe_name: AAPL, category: stocks}
+  - {symbol: MSFT, safe_name: MSFT, category: stocks}
+  - {symbol: NVDA, safe_name: NVDA, category: stocks}
+  - {symbol: GOOGL, safe_name: GOOGL, category: stocks}
+  - {symbol: AMZN, safe_name: AMZN, category: stocks}
+  - {symbol: META, safe_name: META, category: stocks}
+  - {symbol: TSLA, safe_name: TSLA, category: stocks}
+  - {symbol: JPM, safe_name: JPM, category: stocks}
+  - {symbol: V, safe_name: V, category: stocks}
+  - {symbol: WMT, safe_name: WMT, category: stocks}
+  - {symbol: UNH, safe_name: UNH, category: stocks}
+  - {symbol: MA, safe_name: MA, category: stocks}
+  - {symbol: PG, safe_name: PG, category: stocks}
+  - {symbol: HD, safe_name: HD, category: stocks}
+  - {symbol: BAC, safe_name: BAC, category: stocks}
+  - {symbol: SPY, safe_name: SPY, category: etfs}
+  - {symbol: QQQ, safe_name: QQQ, category: etfs}
+  - {symbol: VTI, safe_name: VTI, category: etfs}
+  - {symbol: VOO, safe_name: VOO, category: etfs}
+  - {symbol: IWM, safe_name: IWM, category: etfs}
+  - {symbol: DIA, safe_name: DIA, category: etfs}
+  - {symbol: XLK, safe_name: XLK, category: etfs}
+  - {symbol: XLF, safe_name: XLF, category: etfs}
+  - {symbol: XLE, safe_name: XLE, category: etfs}
+  - {symbol: ^GSPC, safe_name: GSPC, category: indices}
+  - {symbol: ^IXIC, safe_name: IXIC, category: indices}
+  - {symbol: ^DJI, safe_name: DJI, category: indices}
+  - {symbol: ^RUT, safe_name: RUT, category: indices}
+  - {symbol: ^VIX, safe_name: VIX, category: indices}
+  - {symbol: ^NSEI, safe_name: NSEI, category: indices}
+  - {symbol: ^BSESN, safe_name: BSESN, category: indices}
+  - {symbol: BTC-USD, safe_name: BTC_USD, category: crypto}
+  - {symbol: ETH-USD, safe_name: ETH_USD, category: crypto}
+  - {symbol: BNB-USD, safe_name: BNB_USD, category: crypto}
+  - {symbol: SOL-USD, safe_name: SOL_USD, category: crypto}
+  - {symbol: XRP-USD, safe_name: XRP_USD, category: crypto}
+  - {symbol: ADA-USD, safe_name: ADA_USD, category: crypto}
+  - {symbol: EURUSD=X, safe_name: EURUSDX, category: forex}
+  - {symbol: GBPUSD=X, safe_name: GBPUSDX, category: forex}
+  - {symbol: JPY=X, safe_name: JPYX, category: forex}
+  - {symbol: INR=X, safe_name: INRX, category: forex}
+  - {symbol: AUDUSD=X, safe_name: AUDUSDX, category: forex}
+  - {symbol: CAD=X, safe_name: CADX, category: forex}
+  - {symbol: VTSAX, safe_name: VTSAX, category: mutual_funds}
+  - {symbol: VFIAX, safe_name: VFIAX, category: mutual_funds}
+  - {symbol: SWPPX, safe_name: SWPPX, category: mutual_funds}
+  - {symbol: FXAIX, safe_name: FXAIX, category: mutual_funds}
+
+horizons: [1d, 5d, 10d, 20d]
+models: [naive, random, buy_hold, momentum, LightGBM, XGBoost, CatBoost]
+baselines: [random, buy_hold, momentum, moving_average]
+
+validation:
+  method: walk-forward expanding window
+  minimum_train_size: 504
+  step_size: 21
+  max_splits: 4
+
+costs:
+  spread_bps: 2.0
+  slippage_bps: 5.0
+  commission_bps: 1.0
+
+regimes: [bull, bear, sideways, high_volatility]
+metrics:
+  - accuracy
+  - ROC-AUC
+  - F1
+  - Sharpe
+  - Sortino
+  - Calmar
+  - max_drawdown
+  - turnover
+  - bootstrap_p
+  - deflated_sharpe
+
+decision_rules:
+  significance_level: 0.05
+  min_observations: 12
+  min_assets_for_promising: 2
+  min_regimes_for_promising: 2
+  min_assets_for_validated: 5
+  min_regimes_for_validated: 3
+  require_positive_cost_adjusted_sharpe: true
+  require_beats_random: true
+  require_beats_buy_hold: true
+  require_beats_momentum: true
+  require_beats_moving_average: true

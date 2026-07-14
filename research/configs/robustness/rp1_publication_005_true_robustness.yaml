@@ -1,0 +1,57 @@
+publication_id: RP1_PUBLICATION_005_TRUE_ROBUSTNESS_RERUN
+protocol_version: RP1_RESEARCH_PROTOCOL_2026_07_13
+source_publication_ids:
+  - RP1_INITIAL_EVIDENCE_REVIEW
+  - RP1_PUBLICATION_002_ASSET_CLASS_CONCENTRATION_REVIEW
+  - RP1_PUBLICATION_003_STOCK_CONCENTRATION_AND_SURVIVORSHIP
+  - RP1_PUBLICATION_004_ETF_FOREX_ROBUSTNESS
+target: target_direction
+horizon_days: 20
+feature_schema: technical_momentum_volatility_volume_lagged
+final_holdout_start: '2025-07-01'
+seeds: [42]
+models: [LightGBM, XGBoost, CatBoost]
+assets:
+  - {symbol: SPY, safe_name: SPY, category: etfs}
+  - {symbol: QQQ, safe_name: QQQ, category: etfs}
+  - {symbol: VTI, safe_name: VTI, category: etfs}
+  - {symbol: VOO, safe_name: VOO, category: etfs}
+  - {symbol: IWM, safe_name: IWM, category: etfs}
+  - {symbol: DIA, safe_name: DIA, category: etfs}
+  - {symbol: XLK, safe_name: XLK, category: etfs}
+  - {symbol: XLF, safe_name: XLF, category: etfs}
+  - {symbol: XLE, safe_name: XLE, category: etfs}
+  - {symbol: EURUSD=X, safe_name: EURUSDX, category: forex}
+  - {symbol: GBPUSD=X, safe_name: GBPUSDX, category: forex}
+  - {symbol: JPY=X, safe_name: JPYX, category: forex}
+  - {symbol: INR=X, safe_name: INRX, category: forex}
+  - {symbol: AUDUSD=X, safe_name: AUDUSDX, category: forex}
+  - {symbol: CAD=X, safe_name: CADX, category: forex}
+  - {symbol: AAPL, safe_name: AAPL, category: stocks}
+  - {symbol: UNH, safe_name: UNH, category: stocks}
+  - {symbol: AMZN, safe_name: AMZN, category: stocks}
+  - {symbol: NVDA, safe_name: NVDA, category: stocks}
+  - {symbol: TSLA, safe_name: TSLA, category: stocks}
+cost_scenarios:
+  diagnostic_0bps: {spread_bps: 0.0, commission_bps: 0.0, slippage_bps: 0.0}
+  realistic: {spread_bps: 2.0, commission_bps: 1.0, slippage_bps: 5.0}
+  stress_15bps: {spread_bps: 5.0, commission_bps: 2.0, slippage_bps: 8.0}
+  stress_25bps: {spread_bps: 8.0, commission_bps: 2.0, slippage_bps: 15.0}
+robustness_scenarios: [retraining_frequency, nearby_hyperparameters, feature_ablation, regime, cost]
+bootstrap: {samples: 200, block_length: 5, confidence_level: 0.95}
+statistical_correction: benjamini_hochberg_screening
+pass_fail_criteria:
+  min_balanced_accuracy: 0.53
+  min_assets: 2
+  min_regimes: 2
+  require_positive_realistic_cost_return: true
+  require_positive_stressed_cost_return: true
+  require_block_ci_above_chance: true
+candidate_qualification:
+  paper_observation_requires: [out_of_sample, multiple_assets, multiple_regimes, realistic_costs, stressed_costs, statistical_correction, explicit_failure_conditions]
+  automatic_promotion: false
+output_root: research/experiments/rp1_publication_005_true_robustness
+overwrite_policy: forbid
+required_appendices: [configuration_provenance, candidate_eligibility, asset_robustness, seed_robustness, temporal_robustness, statistical_robustness, probability_diagnostics, economic_robustness, failure_log, reproducibility_checklist]
+smoke_test:
+  safe_names: [SPY, EURUSDX, AAPL]

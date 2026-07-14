@@ -1,0 +1,141 @@
+assets:
+- category: etfs
+  safe_name: SPY
+  symbol: SPY
+- category: etfs
+  safe_name: QQQ
+  symbol: QQQ
+- category: etfs
+  safe_name: VTI
+  symbol: VTI
+- category: etfs
+  safe_name: VOO
+  symbol: VOO
+- category: etfs
+  safe_name: IWM
+  symbol: IWM
+- category: etfs
+  safe_name: DIA
+  symbol: DIA
+- category: etfs
+  safe_name: XLK
+  symbol: XLK
+- category: etfs
+  safe_name: XLF
+  symbol: XLF
+- category: etfs
+  safe_name: XLE
+  symbol: XLE
+- category: forex
+  safe_name: EURUSDX
+  symbol: EURUSD=X
+- category: forex
+  safe_name: GBPUSDX
+  symbol: GBPUSD=X
+- category: forex
+  safe_name: JPYX
+  symbol: JPY=X
+- category: forex
+  safe_name: INRX
+  symbol: INR=X
+- category: forex
+  safe_name: AUDUSDX
+  symbol: AUDUSD=X
+- category: forex
+  safe_name: CADX
+  symbol: CAD=X
+- category: stocks
+  safe_name: AAPL
+  symbol: AAPL
+- category: stocks
+  safe_name: UNH
+  symbol: UNH
+- category: stocks
+  safe_name: AMZN
+  symbol: AMZN
+- category: stocks
+  safe_name: NVDA
+  symbol: NVDA
+- category: stocks
+  safe_name: TSLA
+  symbol: TSLA
+bootstrap:
+  block_length: 5
+  confidence_level: 0.95
+  samples: 200
+candidate_qualification:
+  automatic_promotion: false
+  paper_observation_requires:
+  - out_of_sample
+  - multiple_assets
+  - multiple_regimes
+  - realistic_costs
+  - stressed_costs
+  - statistical_correction
+  - explicit_failure_conditions
+cost_scenarios:
+  diagnostic_0bps:
+    commission_bps: 0.0
+    slippage_bps: 0.0
+    spread_bps: 0.0
+  realistic:
+    commission_bps: 1.0
+    slippage_bps: 5.0
+    spread_bps: 2.0
+  stress_15bps:
+    commission_bps: 2.0
+    slippage_bps: 8.0
+    spread_bps: 5.0
+  stress_25bps:
+    commission_bps: 2.0
+    slippage_bps: 15.0
+    spread_bps: 8.0
+feature_schema: technical_momentum_volatility_volume_lagged
+final_holdout_start: '2025-07-01'
+horizon_days: 20
+models:
+- LightGBM
+- XGBoost
+- CatBoost
+output_root: research/experiments/rp1_publication_005_true_robustness
+overwrite_policy: forbid
+pass_fail_criteria:
+  min_assets: 2
+  min_balanced_accuracy: 0.53
+  min_regimes: 2
+  require_block_ci_above_chance: true
+  require_positive_realistic_cost_return: true
+  require_positive_stressed_cost_return: true
+protocol_version: RP1_RESEARCH_PROTOCOL_2026_07_13
+publication_id: RP1_PUBLICATION_005_TRUE_ROBUSTNESS_RERUN
+required_appendices:
+- configuration_provenance
+- candidate_eligibility
+- asset_robustness
+- seed_robustness
+- temporal_robustness
+- statistical_robustness
+- probability_diagnostics
+- economic_robustness
+- failure_log
+- reproducibility_checklist
+robustness_scenarios:
+- retraining_frequency
+- nearby_hyperparameters
+- feature_ablation
+- regime
+- cost
+seeds:
+- 42
+smoke_test:
+  safe_names:
+  - SPY
+  - EURUSDX
+  - AAPL
+source_publication_ids:
+- RP1_INITIAL_EVIDENCE_REVIEW
+- RP1_PUBLICATION_002_ASSET_CLASS_CONCENTRATION_REVIEW
+- RP1_PUBLICATION_003_STOCK_CONCENTRATION_AND_SURVIVORSHIP
+- RP1_PUBLICATION_004_ETF_FOREX_ROBUSTNESS
+statistical_correction: benjamini_hochberg_screening
+target: target_direction
